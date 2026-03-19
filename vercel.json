@@ -1,5 +1,9 @@
 {
-  "buildCommand": "vite build && node scripts/bundle-api.cjs",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist/public",
   "installCommand": "npm install",
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
 }
