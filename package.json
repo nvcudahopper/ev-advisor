@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
     "build": "tsx script/build.ts",
-    "build:vercel": "vite build",
+    "build:vercel": "vite build && node -e \"const{build}=require('esbuild');const fs=require('fs');const files=fs.readdirSync('api').filter(f=>f.endsWith('.ts'));Promise.all(files.map(f=>build({entryPoints:['api/'+f],bundle:true,platform:'node',target:'node18',format:'cjs',outfile:'api/'+f.replace('.ts','.js'),external:['@vercel/node']}).then(()=>{fs.unlinkSync('api/'+f);console.log('bundled',f)}))).then(()=>console.log('API ready'))\"",
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
     "db:push": "drizzle-kit push"
