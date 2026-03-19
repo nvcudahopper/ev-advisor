@@ -37,15 +37,19 @@ import {
   Camera,
   Key,
   Zap,
+  AlertTriangle,
 } from "lucide-react";
 
 const TOTAL_STEPS = 9;
 
 const defaultSurvey: Survey = {
+  city: "other",
   usageScenarios: ["city_commute"],
   annualMileage: "10k_20k",
   hasHomeCharger: false,
   longTripFrequency: "rarely",
+  parkingDifficulty: "moderate",
+  preferCompactSize: false,
   familySize: 3,
   oftenFullLoad: false,
   needLargeTrunk: false,
