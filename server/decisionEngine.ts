@@ -14,7 +14,7 @@ import type {
   ExitStrategy,
   DecisionResult,
 } from "../shared/schema.js";
-import { carDatabase } from "./carData";
+import { carDatabase } from "./carData.js";
 
 // ==================== 可配置参数 ====================
 const CONFIG = {
