@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { surveySchema } from "@shared/schema";
+import { surveySchema } from "../shared/schema.js";
 import { evaluate } from "./decisionEngine";
 import { carDatabase } from "./carData";
 

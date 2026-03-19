@@ -6,7 +6,7 @@
  * 评分类字段统一使用 0-10 分制，保值率使用 0-1 小数。
  */
 
-import type { CarModel } from "@shared/schema";
+import type { CarModel } from "../shared/schema.js";
 
 export const carDatabase: CarModel[] = [
   // ==================== 理想 ====================

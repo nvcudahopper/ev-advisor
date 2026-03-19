@@ -13,7 +13,7 @@ import type {
   PurchaseMethod,
   ExitStrategy,
   DecisionResult,
-} from "@shared/schema";
+} from "../shared/schema.js";
 import { carDatabase } from "./carData";
 
 // ==================== 可配置参数 ====================
