@@ -81,6 +81,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 8,
     sportinessScore: 5,
     zeroto100: 5.3,
+
+    // 车身尺寸
+    bodyLength: 5050,
+    bodyWidth: 1995,
+    bodyHeight: 1750,
+    wheelbase: 3005,
+
+    // 牌照政策（增程）
+    platePolicy: {
+      beijing: "restricted",
+      shanghai: "bid_plate",
+      shenzhen: "restricted",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
   {
     id: "lixiang_l8",
@@ -153,6 +169,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 8,
     sportinessScore: 5,
     zeroto100: 5.3,
+
+    // 车身尺寸
+    bodyLength: 5080,
+    bodyWidth: 1995,
+    bodyHeight: 1800,
+    wheelbase: 3005,
+
+    // 牌照政策（增程）
+    platePolicy: {
+      beijing: "restricted",
+      shanghai: "bid_plate",
+      shenzhen: "restricted",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
   {
     id: "lixiang_l9",
@@ -225,6 +257,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 9,
     sportinessScore: 4,
     zeroto100: 5.3,
+
+    // 车身尺寸
+    bodyLength: 5218,
+    bodyWidth: 1998,
+    bodyHeight: 1800,
+    wheelbase: 3105,
+
+    // 牌照政策（增程）
+    platePolicy: {
+      beijing: "restricted",
+      shanghai: "bid_plate",
+      shenzhen: "restricted",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
 
   // ==================== 蔚来 ====================
@@ -300,6 +348,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 8,
     sportinessScore: 6,
     zeroto100: 4.5,
+
+    // 车身尺寸
+    bodyLength: 4854,
+    bodyWidth: 1995,
+    bodyHeight: 1703,
+    wheelbase: 2915,
+
+    // 牌照政策（纯电）
+    platePolicy: {
+      beijing: "green_plate",
+      shanghai: "free_green",
+      shenzhen: "green_plate",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
   {
     id: "nio_et5",
@@ -373,6 +437,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 7,
     sportinessScore: 7,
     zeroto100: 4.0,
+
+    // 车身尺寸
+    bodyLength: 4790,
+    bodyWidth: 1960,
+    bodyHeight: 1499,
+    wheelbase: 2888,
+
+    // 牌照政策（纯电）
+    platePolicy: {
+      beijing: "green_plate",
+      shanghai: "free_green",
+      shenzhen: "green_plate",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
 
   // ==================== 小鹏 ====================
@@ -444,6 +524,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 6,
     sportinessScore: 7,
     zeroto100: 3.9,
+
+    // 车身尺寸
+    bodyLength: 4753,
+    bodyWidth: 1920,
+    bodyHeight: 1650,
+    wheelbase: 2890,
+
+    // 牌照政策（纯电）
+    platePolicy: {
+      beijing: "green_plate",
+      shanghai: "free_green",
+      shenzhen: "green_plate",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
   {
     id: "xpeng_g9",
@@ -513,6 +609,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 7,
     sportinessScore: 7,
     zeroto100: 3.9,
+
+    // 车身尺寸
+    bodyLength: 4891,
+    bodyWidth: 1937,
+    bodyHeight: 1670,
+    wheelbase: 2998,
+
+    // 牌照政策（纯电）
+    platePolicy: {
+      beijing: "green_plate",
+      shanghai: "free_green",
+      shenzhen: "green_plate",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
 
   // ==================== 特斯拉 ====================
@@ -585,6 +697,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 6,
     sportinessScore: 8,
     zeroto100: 3.1,
+
+    // 车身尺寸
+    bodyLength: 4720,
+    bodyWidth: 1848,
+    bodyHeight: 1442,
+    wheelbase: 2875,
+
+    // 牌照政策（纯电）
+    platePolicy: {
+      beijing: "green_plate",
+      shanghai: "free_green",
+      shenzhen: "green_plate",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
   {
     id: "tesla_modely",
@@ -655,6 +783,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 6,
     sportinessScore: 7,
     zeroto100: 3.7,
+
+    // 车身尺寸
+    bodyLength: 4750,
+    bodyWidth: 1921,
+    bodyHeight: 1624,
+    wheelbase: 2890,
+
+    // 牌照政策（纯电）
+    platePolicy: {
+      beijing: "green_plate",
+      shanghai: "free_green",
+      shenzhen: "green_plate",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
 
   // ==================== 问界 ====================
@@ -730,6 +874,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 7,
     sportinessScore: 5,
     zeroto100: 4.4,
+
+    // 车身尺寸
+    bodyLength: 4785,
+    bodyWidth: 1930,
+    bodyHeight: 1620,
+    wheelbase: 2880,
+
+    // 牌照政策（增程）
+    platePolicy: {
+      beijing: "restricted",
+      shanghai: "bid_plate",
+      shenzhen: "restricted",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
   {
     id: "aito_m7",
@@ -803,6 +963,22 @@ export const carDatabase: CarModel[] = [
     nvhScore: 7,
     sportinessScore: 5,
     zeroto100: 4.8,
+
+    // 车身尺寸
+    bodyLength: 5020,
+    bodyWidth: 1945,
+    bodyHeight: 1760,
+    wheelbase: 2820,
+
+    // 牌照政策（增程）
+    platePolicy: {
+      beijing: "restricted",
+      shanghai: "bid_plate",
+      shenzhen: "restricted",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
 
   // ==================== 阿维塔 ====================
@@ -878,5 +1054,21 @@ export const carDatabase: CarModel[] = [
     nvhScore: 8,
     sportinessScore: 8,
     zeroto100: 3.98,
+
+    // 车身尺寸
+    bodyLength: 4880,
+    bodyWidth: 1970,
+    bodyHeight: 1601,
+    wheelbase: 2975,
+
+    // 牌照政策（纯电）
+    platePolicy: {
+      beijing: "green_plate",
+      shanghai: "free_green",
+      shenzhen: "green_plate",
+      guangzhou: "green_plate",
+      hangzhou: "green_plate",
+      chengdu: "green_plate",
+    },
   },
 ];

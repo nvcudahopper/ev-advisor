@@ -90,6 +90,7 @@ function computeWeights(survey: Survey) {
     charging: 0.04,
     driveStyle: 0.04,
     nvh: 0.04,
+    sizeParking: 0.04,
   };
 
   // 根据场景和里程调权重
@@ -171,6 +172,16 @@ function computeWeights(survey: Survey) {
     w.price -= 0.03;
   }
 
+  // 车身尺寸权重调整
+  if (survey.parkingDifficulty === "tight") {
+    w.sizeParking += 0.06;
+  } else if (survey.parkingDifficulty === "moderate") {
+    w.sizeParking += 0.02;
+  }
+  if (survey.preferCompactSize) {
+    w.sizeParking += 0.03;
+  }
+
   // Clamp negatives to small positive
   for (const k of Object.keys(w) as Array<keyof typeof w>) {
     if (w[k] < 0.01) w[k] = 0.01;
@@ -204,6 +215,14 @@ function scoreCar(car: CarModel, survey: Survey, weights: ReturnType<typeof comp
   if (car.powerType === "erev" && survey.longTripFrequency === "weekly") powerScore += 15;
   if (car.powerType === "erev" && survey.longTripFrequency === "monthly") powerScore += 8;
   powerScore = Math.min(powerScore, 100);
+
+  // 城市限行惩罚
+  if (survey.city === "beijing" && car.powerType === "erev") {
+    powerScore *= 0.3; // 北京增程严重限行
+  }
+  if (survey.city === "shenzhen" && car.powerType === "erev") {
+    powerScore *= 0.7; // 深圳有限制但没那么严
+  }
   score += powerScore * weights.powerType;
 
   // 空间
@@ -253,6 +272,12 @@ function scoreCar(car: CarModel, survey: Survey, weights: ReturnType<typeof comp
     priceScore = 100 - Math.abs(midPrice - maxBudget * 0.8) / maxBudget * 50;
   } else {
     priceScore = Math.max(0, 50 - ((midPrice - maxBudget) / maxBudget) * 100);
+  }
+  priceScore = Math.max(0, Math.min(100, priceScore));
+
+  // 上海增程需竞拍沪牌，在价格维度扣分
+  if (survey.city === "shanghai" && car.powerType === "erev") {
+    priceScore -= 15; // 上海增程需竞拍沪牌（约10万元）
   }
   priceScore = Math.max(0, Math.min(100, priceScore));
   score += priceScore * weights.price;
@@ -337,6 +362,19 @@ function scoreCar(car: CarModel, survey: Survey, weights: ReturnType<typeof comp
   // === 新增：NVH匹配 ===
   const nvhMatchScore = (car.nvhScore / 10) * 100;
   score += nvhMatchScore * weights.nvh;
+
+  // === 新增：车身尺寸评分 ===
+  let sizeScore = 50;
+  if (car.bodyLength < 4800) sizeScore = 100;
+  else if (car.bodyLength < 4900) sizeScore = 80;
+  else if (car.bodyLength < 5000) sizeScore = 65;
+  else if (car.bodyLength < 5100) sizeScore = 50;
+  else sizeScore = 30;
+  // 车宽修正
+  if (car.bodyWidth < 1930) sizeScore += 10;
+  else if (car.bodyWidth > 1990) sizeScore -= 10;
+  sizeScore = Math.max(0, Math.min(100, sizeScore));
+  score += sizeScore * weights.sizeParking;
 
   return Math.round(Math.max(0, Math.min(100, score)));
 }

@@ -3,6 +3,9 @@ import { z } from "zod";
 // ==================== 用户问卷 Schema ====================
 
 export const surveySchema = z.object({
+  // 所在城市（限行政策）
+  city: z.enum(["beijing", "shanghai", "shenzhen", "guangzhou", "hangzhou", "chengdu", "other"]),
+
   // 使用场景
   usageScenarios: z.array(z.enum(["city_commute", "highway_business", "family_trip"])).min(1),
   annualMileage: z.enum(["lt10k", "10k_20k", "20k_30k", "gt30k"]),
@@ -13,6 +16,10 @@ export const surveySchema = z.object({
   familySize: z.number().min(1).max(10),
   oftenFullLoad: z.boolean(),
   needLargeTrunk: z.boolean(),
+
+  // 停车相关
+  parkingDifficulty: z.enum(["easy", "moderate", "tight"]),
+  preferCompactSize: z.boolean(),
 
   // 智驾需求（细化）
   adsPriority: z.enum(["must_have", "nice_to_have", "dont_care"]),
@@ -92,6 +99,22 @@ export interface CarModel {
   resaleRate1Year: number; // e.g. 0.80
   resaleRate3Year: number;
   resaleRate5Year: number;
+
+  // 车身尺寸
+  bodyLength: number;      // 车长 mm
+  bodyWidth: number;       // 车宽 mm
+  bodyHeight: number;      // 车高 mm
+  wheelbase: number;       // 轴距 mm
+
+  // 牌照政策
+  platePolicy: {
+    beijing: "green_plate" | "restricted";
+    shanghai: "free_green" | "bid_plate";
+    shenzhen: "green_plate" | "restricted";
+    guangzhou: "green_plate" | "restricted";
+    hangzhou: "green_plate" | "restricted";
+    chengdu: "green_plate" | "restricted";
+  };
 
   // 特殊模式
   special?: {

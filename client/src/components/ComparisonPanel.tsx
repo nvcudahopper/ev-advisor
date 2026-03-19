@@ -35,6 +35,7 @@ import {
   Volume2,
   Timer,
   CreditCard,
+  Ruler,
 } from "lucide-react";
 
 interface Props {
@@ -126,6 +127,13 @@ const dimensions: Dimension[] = [
     icon: <Sofa className="w-3.5 h-3.5" />,
     extract: (c) => (c.rearSpace / 10) * 100,
     desc: "后排空间评分",
+  },
+  {
+    key: "bodySize",
+    label: "车身尺寸",
+    icon: <Ruler className="w-3.5 h-3.5" />,
+    extract: (c) => Math.max(0, Math.min(100, ((5200 - c.bodyLength) / 500) * 100)),
+    desc: "车身紧凑度（越小越好停车）",
   },
   {
     key: "brand",
@@ -584,6 +592,16 @@ export default function ComparisonPanel({
                       top: topCarData.canSwapBattery ? "是" : "否",
                       chall: selectedCar.canSwapBattery ? "是" : "否",
                     },
+                    {
+                      label: "车身尺寸",
+                      top: `${topCarData.bodyLength}×${topCarData.bodyWidth}×${topCarData.bodyHeight}mm`,
+                      chall: `${selectedCar.bodyLength}×${selectedCar.bodyWidth}×${selectedCar.bodyHeight}mm`,
+                    },
+                    ...(surveyData.city === "beijing" ? [{
+                      label: "限行(北京)",
+                      top: topCarData.platePolicy.beijing === "restricted" ? "限行" : "不限行",
+                      chall: selectedCar.platePolicy.beijing === "restricted" ? "限行" : "不限行",
+                    }] : []),
                   ].map((row) => (
                     <div
                       key={row.label}

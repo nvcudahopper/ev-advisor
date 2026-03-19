@@ -217,6 +217,30 @@ export default function ResultPage({ result, surveyData, onRestart }: Props) {
                         +{configBadges.length - 4}项配置
                       </Badge>
                     )}
+                    {rec.car.bodyLength > 5050 && (
+                      <Badge
+                        variant="secondary"
+                        className="text-xs border-amber-300 text-amber-700 dark:border-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30"
+                      >
+                        车身较大
+                      </Badge>
+                    )}
+                    {surveyData.city === "beijing" && rec.car.powerType === "erev" && (
+                      <Badge
+                        variant="destructive"
+                        className="text-xs"
+                      >
+                        ⚠️ 北京限行
+                      </Badge>
+                    )}
+                    {surveyData.city === "shanghai" && rec.car.powerType === "erev" && (
+                      <Badge
+                        variant="destructive"
+                        className="text-xs"
+                      >
+                        ⚠️ 需拍沪牌
+                      </Badge>
+                    )}
                   </div>
                 </CardContent>
               </Card>

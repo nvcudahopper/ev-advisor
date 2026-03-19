@@ -69,6 +69,22 @@ const longTripLabels: Record<string, string> = {
   weekly: "每周",
 };
 
+const cityLabels: Record<string, string> = {
+  beijing: "北京",
+  shanghai: "上海",
+  shenzhen: "深圳",
+  guangzhou: "广州",
+  hangzhou: "杭州",
+  chengdu: "成都",
+  other: "其他城市",
+};
+
+const parkingDifficultyLabels: Record<string, string> = {
+  easy: "宽松",
+  moderate: "一般",
+  tight: "紧张",
+};
+
 const configLabels: Record<string, string> = {
   frunk: "前备箱",
   rear_screen: "后排屏幕",
@@ -115,6 +131,7 @@ export default function ConfirmPage({ data, onConfirm, onBack }: Props) {
           </CardTitle>
         </CardHeader>
         <CardContent>
+          <Row label="所在城市" value={cityLabels[data.city] || data.city} />
           <Row
             label="场景"
             value={
@@ -146,6 +163,8 @@ export default function ConfirmPage({ data, onConfirm, onBack }: Props) {
             label="大后备箱需求"
             value={data.needLargeTrunk ? "是" : "否"}
           />
+          <Row label="停车难度" value={parkingDifficultyLabels[data.parkingDifficulty] || data.parkingDifficulty} />
+          <Row label="倾向紧凑车身" value={data.preferCompactSize ? "是" : "否"} />
         </CardContent>
       </Card>
 

@@ -182,6 +182,50 @@ export default function SurveyWizard({ initialData, onComplete }: Props) {
           {step === 1 && (
             <>
               <div className="space-y-3">
+                <Label className="text-sm font-medium">所在城市</Label>
+                <RadioGroup
+                  value={data.city}
+                  onValueChange={(v) => update("city", v as Survey["city"])}
+                  className="grid grid-cols-2 gap-2"
+                >
+                  {(
+                    [
+                      ["beijing", "北京"],
+                      ["shanghai", "上海"],
+                      ["shenzhen", "深圳"],
+                      ["guangzhou", "广州"],
+                      ["hangzhou", "杭州"],
+                      ["chengdu", "成都"],
+                      ["other", "其他城市"],
+                    ] as const
+                  ).map(([val, label]) => (
+                    <label
+                      key={val}
+                      className="flex items-center gap-2 p-3 rounded-lg border border-border hover:bg-accent/50 cursor-pointer transition-colors"
+                    >
+                      <RadioGroupItem value={val} />
+                      <span className="text-sm">{label}</span>
+                    </label>
+                  ))}
+                </RadioGroup>
+                {data.city === "beijing" && (
+                  <div className="flex items-start gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
+                    <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
+                    <p className="text-xs text-red-700 dark:text-red-300">
+                      ⚠️ 北京增程/插混按燃油车管理，工作日限行
+                    </p>
+                  </div>
+                )}
+                {data.city === "shanghai" && (
+                  <div className="flex items-start gap-2 p-3 rounded-lg bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-800">
+                    <AlertTriangle className="w-4 h-4 text-yellow-600 dark:text-yellow-400 mt-0.5 shrink-0" />
+                    <p className="text-xs text-yellow-700 dark:text-yellow-300">
+                      ⚠️ 上海增程/插混需竞拍沪牌（约10万元）
+                    </p>
+                  </div>
+                )}
+              </div>
+              <div className="space-y-3">
                 <Label className="text-sm font-medium">
                   主要使用场景（可多选）
                 </Label>
@@ -313,6 +357,43 @@ export default function SurveyWizard({ initialData, onComplete }: Props) {
                   data-testid="switch-large-trunk"
                   checked={data.needLargeTrunk}
                   onCheckedChange={(v) => update("needLargeTrunk", v)}
+                />
+              </div>
+              <div className="space-y-3">
+                <Label className="text-sm font-medium">停车难度</Label>
+                <RadioGroup
+                  value={data.parkingDifficulty}
+                  onValueChange={(v) => update("parkingDifficulty", v as Survey["parkingDifficulty"])}
+                  className="space-y-2"
+                >
+                  {(
+                    [
+                      ["easy", "宽松", "自有车位，停车方便"],
+                      ["moderate", "一般", "偶尔需要找车位"],
+                      ["tight", "紧张", "地库车位窄、经常路边停车"],
+                    ] as const
+                  ).map(([val, label, desc]) => (
+                    <label
+                      key={val}
+                      className="flex items-start gap-3 p-3 rounded-lg border border-border hover:bg-accent/50 cursor-pointer transition-colors"
+                    >
+                      <RadioGroupItem value={val} className="mt-0.5" />
+                      <div>
+                        <span className="text-sm font-medium">{label}</span>
+                        <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
+                      </div>
+                    </label>
+                  ))}
+                </RadioGroup>
+              </div>
+              <div className="flex items-center justify-between p-3 rounded-lg border border-border">
+                <div>
+                  <Label className="text-sm font-medium">倾向紧凑车身</Label>
+                  <p className="text-xs text-muted-foreground mt-0.5">方便停车和城市驾驶</p>
+                </div>
+                <Switch
+                  checked={data.preferCompactSize}
+                  onCheckedChange={(v) => update("preferCompactSize", v)}
                 />
               </div>
             </>
