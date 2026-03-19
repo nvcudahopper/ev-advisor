@@ -268,7 +268,7 @@ export default function ResultPage({ result, surveyData, onRestart }: Props) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {topCars.slice(3, 7).map((rec) => (
+                  {topCars.slice(3, 15).map((rec) => (
                     <TableRow key={rec.car.id}>
                       <TableCell className="text-sm font-medium">
                         {rec.car.brand} {rec.car.model}
