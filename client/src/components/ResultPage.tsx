@@ -1,4 +1,4 @@
-import type { DecisionResult } from "@shared/schema";
+import type { DecisionResult, Survey } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
+import ComparisonPanel from "@/components/ComparisonPanel";
 import {
   RotateCcw,
   Trophy,
@@ -25,6 +26,7 @@ import {
 
 interface Props {
   result: DecisionResult;
+  surveyData: Survey;
   onRestart: () => void;
 }
 
@@ -45,7 +47,7 @@ function Stars({ count }: { count: number }) {
   );
 }
 
-export default function ResultPage({ result, onRestart }: Props) {
+export default function ResultPage({ result, surveyData, onRestart }: Props) {
   const { topCars, purchaseMethods, exitStrategy, selectedCarForFinance } =
     result;
 
@@ -184,7 +186,7 @@ export default function ResultPage({ result, onRestart }: Props) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {topCars.slice(3).map((rec) => (
+                  {topCars.slice(3, 7).map((rec) => (
                     <TableRow key={rec.car.id}>
                       <TableCell className="text-sm font-medium">
                         {rec.car.brand} {rec.car.model}
@@ -327,8 +329,13 @@ export default function ResultPage({ result, onRestart }: Props) {
         </Card>
       </section>
 
-      {/* Restart */}
-      <div className="flex justify-center pt-4">
+      {/* Actions */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+        <ComparisonPanel
+          topCar={topCars[0]}
+          allRanked={topCars}
+          surveyData={surveyData}
+        />
         <Button
           variant="outline"
           onClick={onRestart}

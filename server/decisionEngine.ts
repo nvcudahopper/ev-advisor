@@ -171,7 +171,7 @@ function rankCars(survey: Survey): CarRecommendation[] {
   }));
 
   scored.sort((a, b) => b.score - a.score);
-  return scored.slice(0, 5); // 返回 Top 5
+  return scored; // 返回所有（含分数），供对比功能使用
 }
 
 // ==================== 2. 资金策略模型 ====================

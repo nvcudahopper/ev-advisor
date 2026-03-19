@@ -83,8 +83,8 @@ export default function Home() {
           </div>
         )}
 
-        {stage === "result" && result && (
-          <ResultPage result={result} onRestart={handleRestart} />
+        {stage === "result" && result && surveyData && (
+          <ResultPage result={result} surveyData={surveyData} onRestart={handleRestart} />
         )}
       </main>
 
