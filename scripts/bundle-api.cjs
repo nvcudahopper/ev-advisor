@@ -20,7 +20,9 @@ const staticDir = path.join(outputBase, "static");
 const vcConfig = JSON.stringify({
   runtime: "nodejs18.x",
   handler: "index.js",
-  launcherType: "Nodejs"
+  launcherType: "Nodejs",
+  shouldAddHelpers: true,
+  shouldAddSourcemapSupport: false
 }, null, 2);
 
 async function main() {
@@ -64,6 +66,9 @@ async function main() {
       format: "cjs",
       outfile: path.join(funcDir, "index.js"),
       external: [],
+      footer: {
+        js: '// Vercel expects module.exports to be the handler directly\nif (module.exports && module.exports.default) { module.exports = module.exports.default; }'
+      },
     });
 
     fs.writeFileSync(path.join(funcDir, ".vc-config.json"), vcConfig);
