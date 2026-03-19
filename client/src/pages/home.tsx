@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import type { Survey, DecisionResult } from "@shared/schema";
+import { evaluate } from "@server/decisionEngine";
 import SurveyWizard from "@/components/SurveyWizard";
 import ConfirmPage from "@/components/ConfirmPage";
 import ResultPage from "@/components/ResultPage";
@@ -15,20 +14,6 @@ export default function Home() {
   const [surveyData, setSurveyData] = useState<Survey | null>(null);
   const [result, setResult] = useState<DecisionResult | null>(null);
 
-  const evalMutation = useMutation({
-    mutationFn: async (data: Survey) => {
-      const res = await apiRequest("POST", "/api/eval", data);
-      return (await res.json()) as DecisionResult;
-    },
-    onSuccess: (data) => {
-      setResult(data);
-      setStage("result");
-    },
-    onError: () => {
-      setStage("confirm");
-    },
-  });
-
   const handleSurveyComplete = (data: Survey) => {
     setSurveyData(data);
     setStage("confirm");
@@ -37,7 +22,15 @@ export default function Home() {
   const handleConfirm = () => {
     if (!surveyData) return;
     setStage("loading");
-    evalMutation.mutate(surveyData);
+    // Run evaluation directly in the browser — no API call needed
+    try {
+      const evalResult = evaluate(surveyData);
+      setResult(evalResult);
+      setStage("result");
+    } catch (err) {
+      console.error("Evaluation failed:", err);
+      setStage("confirm");
+    }
   };
 
   const handleBack = () => {
