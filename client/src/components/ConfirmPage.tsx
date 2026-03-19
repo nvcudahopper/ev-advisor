@@ -29,6 +29,66 @@ const cycleLabels: Record<string, string> = {
   as_long_as_possible: "能开就不换",
 };
 
+const adsPriorityLabels: Record<string, string> = {
+  must_have: "必须有",
+  nice_to_have: "加分项",
+  dont_care: "不在意",
+};
+
+const adsCostToleranceLabels: Record<string, string> = {
+  free_only: "只要免费",
+  pay_upfront_ok: "可以买断",
+  subscribe_ok: "可以月租",
+  any: "都能接受",
+};
+
+const adsUseCaseLabels: Record<string, string> = {
+  highway_noa: "高速NOA",
+  city_noa: "城市NOA",
+  memory_parking: "记忆泊车",
+  auto_park: "自动泊车",
+  summon: "智能召唤",
+};
+
+const chargingPrefLabels: Record<string, string> = {
+  slow_home: "家充慢充",
+  fast_public: "公共快充",
+  ultra_fast: "超快充",
+  battery_swap: "换电",
+};
+
+const driveStyleLabels: Record<string, string> = {
+  comfort: "舒适为主",
+  sporty: "运动为主",
+  balanced: "均衡",
+};
+
+const longTripLabels: Record<string, string> = {
+  rarely: "很少",
+  monthly: "每月",
+  weekly: "每周",
+};
+
+const configLabels: Record<string, string> = {
+  frunk: "前备箱",
+  rear_screen: "后排屏幕",
+  rear_sunshade: "遮阳帘",
+  air_suspension: "空气悬挂",
+  ventilated_seats: "座椅通风",
+  heated_seats: "座椅加热",
+  massage_seats: "座椅按摩",
+  hud: "HUD",
+  physical_buttons: "实体按键",
+  wireless_charge: "无线充电",
+  electric_tailgate: "电动尾门",
+  v2l: "外放电",
+  audio_premium: "高端音响",
+  frameless_door: "无框车门",
+  power_door: "电吸门",
+  dash_cam_360: "360全景",
+  nfc_key: "数字钥匙",
+};
+
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex justify-between items-start py-2.5 border-b border-border last:border-0">
@@ -68,6 +128,8 @@ export default function ConfirmPage({ data, onConfirm, onBack }: Props) {
             }
           />
           <Row label="年行驶里程" value={mileageLabels[data.annualMileage]} />
+          <Row label="有家充桩" value={data.hasHomeCharger ? "是" : "否"} />
+          <Row label="长途频率" value={longTripLabels[data.longTripFrequency]} />
         </CardContent>
       </Card>
 
@@ -90,24 +152,81 @@ export default function ConfirmPage({ data, onConfirm, onBack }: Props) {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm text-muted-foreground font-medium">
-            智驾 & 补能偏好
+            智驾需求
           </CardTitle>
         </CardHeader>
         <CardContent>
           <Row
-            label="智驾重视度"
-            value={`${data.smartDrivingImportance} / 5`}
+            label="智驾优先级"
+            value={adsPriorityLabels[data.adsPriority]}
           />
           <Row
-            label="车机重视度"
-            value={`${data.infotainmentImportance} / 5`}
+            label="关注功能"
+            value={
+              <div className="flex gap-1 flex-wrap justify-end">
+                {data.adsUseCases.map((u) => (
+                  <Badge key={u} variant="secondary" className="text-xs">
+                    {adsUseCaseLabels[u]}
+                  </Badge>
+                ))}
+              </div>
+            }
           />
+          <Row
+            label="费用接受度"
+            value={adsCostToleranceLabels[data.adsCostTolerance]}
+          />
+        </CardContent>
+      </Card>
+
+      {data.configMustHaves.length > 0 && (
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-muted-foreground font-medium">
+              在意的配置
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex gap-1.5 flex-wrap">
+              {data.configMustHaves.map((c) => (
+                <Badge key={c} variant="secondary" className="text-xs">
+                  {configLabels[c] || c}
+                </Badge>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm text-muted-foreground font-medium">
+            补能偏好
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
           <Row label="接受纯电" value={data.acceptPureBev ? "是" : "否"} />
           <Row label="倾向增程" value={data.preferErev ? "是" : "否"} />
           <Row
             label="接受换电"
             value={data.acceptBatterySwap ? "是" : "否"}
           />
+          <Row
+            label="充电方式"
+            value={chargingPrefLabels[data.chargingPreference]}
+          />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm text-muted-foreground font-medium">
+            驾驶风格
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Row label="驾驶风格" value={driveStyleLabels[data.driveStyle]} />
+          <Row label="NVH重视度" value={`${data.nvrImportance} / 5`} />
         </CardContent>
       </Card>
 

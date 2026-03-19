@@ -6,20 +6,31 @@ export const surveySchema = z.object({
   // 使用场景
   usageScenarios: z.array(z.enum(["city_commute", "highway_business", "family_trip"])).min(1),
   annualMileage: z.enum(["lt10k", "10k_20k", "20k_30k", "gt30k"]),
+  hasHomeCharger: z.boolean(),
+  longTripFrequency: z.enum(["rarely", "monthly", "weekly"]),
 
   // 家庭与空间
   familySize: z.number().min(1).max(10),
   oftenFullLoad: z.boolean(),
   needLargeTrunk: z.boolean(),
 
-  // 智驾 & 车机偏好 (1-5)
-  smartDrivingImportance: z.number().min(1).max(5),
-  infotainmentImportance: z.number().min(1).max(5),
+  // 智驾需求（细化）
+  adsPriority: z.enum(["must_have", "nice_to_have", "dont_care"]),
+  adsUseCases: z.array(z.enum(["highway_noa", "city_noa", "memory_parking", "auto_park", "summon"])),
+  adsCostTolerance: z.enum(["free_only", "pay_upfront_ok", "subscribe_ok", "any"]),
+
+  // 配置偏好
+  configMustHaves: z.array(z.string()),
 
   // 补能偏好
   acceptPureBev: z.boolean(),
   preferErev: z.boolean(),
   acceptBatterySwap: z.boolean(),
+  chargingPreference: z.enum(["slow_home", "fast_public", "ultra_fast", "battery_swap"]),
+
+  // 驾驶风格
+  driveStyle: z.enum(["comfort", "sporty", "balanced"]),
+  nvrImportance: z.number().min(1).max(5),
 
   // 品牌态度
   domesticBrandAcceptance: z.number().min(1).max(5),
@@ -94,6 +105,47 @@ export interface CarModel {
   // 标签 (用于决策描述)
   highlights: string[];
   risks: string[];
+
+  // === 智驾费用相关 ===
+  adsLevel: "L2" | "L2+" | "L2++" | "L3_highway";
+  adsCostMode: "free" | "upfront" | "subscribe" | "both";
+  adsCostUpfront?: number;   // 买断价格（万元），free则为0
+  adsCostMonthly?: number;   // 月订阅价格（元/月）
+  adsCostYearly?: number;    // 年订阅价格（元/年）
+  adsIncludedYears?: number; // 免费包含年数
+  adsPlatform: string;       // 如 "FSD V13" "ADS 3.0" "XNGP/VLA" "AD Max" "HAD" "天神之眼"
+  autoSummon: boolean;       // 召唤功能
+  autoPark: number;          // 自动泊车评分 0-10
+
+  // === 细节配置 ===
+  hasFrunk: boolean;
+  frunkVolume?: number;        // 前备箱容积（L）
+  hasRearScreen: boolean;
+  hasRearSunshade: boolean;
+  hasAirSuspension: boolean;
+  hasVentilatedSeats: "none" | "front" | "front_rear";
+  hasHeatedSeats: "none" | "front" | "front_rear";
+  hasMassageSeats: "none" | "front" | "front_rear";
+  hasHud: boolean;
+  hasPhysicalButtons: boolean;
+  hasWirelessCharge: boolean;
+  hasElectricTailgate: boolean;
+  hasV2L: boolean;
+  audioBrand: string;
+  hasFramelessDoor: boolean;
+  hasPowerDoor: boolean;
+  has360Camera: boolean;
+  hasDigitalKey: boolean;
+
+  // === 补能细化 ===
+  maxChargePower: number;      // 最大充电功率kW
+  charge10to80min: number;     // 10-80%快充时间（分钟）
+  hasHomeChargerIncluded: boolean;
+
+  // === NVH与驾驶感受 ===
+  nvhScore: number;            // NVH综合评分 0-10
+  sportinessScore: number;     // 运动性评分 0-10
+  zeroto100: number;           // 百公里加速（秒）
 }
 
 // ==================== 决策结果结构 ====================

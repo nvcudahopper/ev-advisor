@@ -44,6 +44,43 @@ export const carDatabase: CarModel[] = [
     },
     highlights: ["增程无焦虑", "家庭旗舰舒适", "冰箱彩电大沙发"],
     risks: ["纯电续航较短", "增程技术路线未来不确定性"],
+
+    // 智驾费用
+    adsLevel: "L2++",
+    adsCostMode: "free",
+    adsCostUpfront: 0,
+    adsPlatform: "AD Max/Pro",
+    autoSummon: false,
+    autoPark: 7,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: true,
+    hasRearSunshade: true,
+    hasAirSuspension: false,
+    hasVentilatedSeats: "front_rear",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "front",
+    hasHud: true,
+    hasPhysicalButtons: true,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "哈曼卡顿",
+    hasFramelessDoor: false,
+    hasPowerDoor: false,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 150,
+    charge10to80min: 35,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 8,
+    sportinessScore: 5,
+    zeroto100: 5.3,
   },
   {
     id: "lixiang_l8",
@@ -79,6 +116,43 @@ export const carDatabase: CarModel[] = [
     },
     highlights: ["六座大空间", "增程无焦虑", "家庭首选"],
     risks: ["价格偏高", "增程路线长期不确定"],
+
+    // 智驾费用
+    adsLevel: "L2++",
+    adsCostMode: "free",
+    adsCostUpfront: 0,
+    adsPlatform: "AD Max/Pro",
+    autoSummon: false,
+    autoPark: 7,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: true,
+    hasRearSunshade: true,
+    hasAirSuspension: false,
+    hasVentilatedSeats: "front_rear",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "front_rear",
+    hasHud: true,
+    hasPhysicalButtons: true,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "哈曼卡顿",
+    hasFramelessDoor: false,
+    hasPowerDoor: false,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 150,
+    charge10to80min: 35,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 8,
+    sportinessScore: 5,
+    zeroto100: 5.3,
   },
   {
     id: "lixiang_l9",
@@ -114,6 +188,43 @@ export const carDatabase: CarModel[] = [
     },
     highlights: ["全尺寸旗舰", "极致舒适", "智驾能力强"],
     risks: ["价格最高", "尺寸过大停车不便"],
+
+    // 智驾费用
+    adsLevel: "L2++",
+    adsCostMode: "free",
+    adsCostUpfront: 0,
+    adsPlatform: "AD Max",
+    autoSummon: false,
+    autoPark: 8,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: true,
+    hasRearSunshade: true,
+    hasAirSuspension: true,
+    hasVentilatedSeats: "front_rear",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "front_rear",
+    hasHud: true,
+    hasPhysicalButtons: true,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "哈曼卡顿",
+    hasFramelessDoor: false,
+    hasPowerDoor: true,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 150,
+    charge10to80min: 35,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 9,
+    sportinessScore: 4,
+    zeroto100: 5.3,
   },
 
   // ==================== 蔚来 ====================
@@ -151,6 +262,44 @@ export const carDatabase: CarModel[] = [
     },
     highlights: ["换电3分钟满电", "车电分离降低购车成本", "服务体验行业标杆"],
     risks: ["纯电续航焦虑", "换电站覆盖三四线不足", "车电分离合同复杂"],
+
+    // 智驾费用
+    adsLevel: "L2++",
+    adsCostMode: "free",
+    adsCostUpfront: 0,
+    adsIncludedYears: 5,
+    adsPlatform: "NAD",
+    autoSummon: true,
+    autoPark: 7,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: false,
+    hasRearSunshade: true,
+    hasAirSuspension: true,
+    hasVentilatedSeats: "front",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "front",
+    hasHud: true,
+    hasPhysicalButtons: true,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: true,
+    audioBrand: "杜比全景声7.1.4",
+    hasFramelessDoor: false,
+    hasPowerDoor: true,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 180,
+    charge10to80min: 30,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 8,
+    sportinessScore: 6,
+    zeroto100: 4.5,
   },
   {
     id: "nio_et5",
@@ -186,6 +335,44 @@ export const carDatabase: CarModel[] = [
     },
     highlights: ["换电便捷", "运动轿车造型", "服务好"],
     risks: ["纯电续航一般", "后排空间不大", "保值率偏低"],
+
+    // 智驾费用
+    adsLevel: "L2+",
+    adsCostMode: "free",
+    adsCostUpfront: 0,
+    adsIncludedYears: 5,
+    adsPlatform: "NAD",
+    autoSummon: true,
+    autoPark: 6,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: false,
+    hasRearSunshade: true,
+    hasAirSuspension: false,
+    hasVentilatedSeats: "front",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "front",
+    hasHud: true,
+    hasPhysicalButtons: true,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: true,
+    audioBrand: "杜比全景声7.1.4",
+    hasFramelessDoor: true,
+    hasPowerDoor: true,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 180,
+    charge10to80min: 30,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 7,
+    sportinessScore: 7,
+    zeroto100: 4.0,
   },
 
   // ==================== 小鹏 ====================
@@ -220,6 +407,43 @@ export const carDatabase: CarModel[] = [
     special: {},
     highlights: ["800V超充架构", "城市NOA行业领先", "性价比高"],
     risks: ["品牌溢价低保值率差", "做工细节一般", "服务网络偏弱"],
+
+    // 智驾费用
+    adsLevel: "L2++",
+    adsCostMode: "free",
+    adsCostUpfront: 0,
+    adsPlatform: "XNGP MAX",
+    autoSummon: true,
+    autoPark: 8,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: false,
+    hasRearSunshade: false,
+    hasAirSuspension: false,
+    hasVentilatedSeats: "front",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "none",
+    hasHud: true,
+    hasPhysicalButtons: false,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "丹拿",
+    hasFramelessDoor: false,
+    hasPowerDoor: false,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 400,
+    charge10to80min: 20,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 6,
+    sportinessScore: 7,
+    zeroto100: 3.9,
   },
   {
     id: "xpeng_g9",
@@ -252,6 +476,43 @@ export const carDatabase: CarModel[] = [
     special: {},
     highlights: ["800V超充", "智驾旗舰", "空间表现好"],
     risks: ["保值率一般", "品牌力待提升", "售后覆盖不足"],
+
+    // 智驾费用
+    adsLevel: "L2++",
+    adsCostMode: "upfront",
+    adsCostUpfront: 2.0,
+    adsPlatform: "Ultra VLA",
+    autoSummon: true,
+    autoPark: 9,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: false,
+    hasRearSunshade: false,
+    hasAirSuspension: true,
+    hasVentilatedSeats: "front_rear",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "front",
+    hasHud: true,
+    hasPhysicalButtons: false,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "丹拿",
+    hasFramelessDoor: false,
+    hasPowerDoor: true,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 430,
+    charge10to80min: 18,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 7,
+    sportinessScore: 7,
+    zeroto100: 3.9,
   },
 
   // ==================== 特斯拉 ====================
@@ -286,6 +547,44 @@ export const carDatabase: CarModel[] = [
     special: {},
     highlights: ["保值率行业第一", "超充网络成熟", "全球品牌影响力"],
     risks: ["内饰简陋", "舒适性一般", "智驾在国内受限"],
+
+    // 智驾费用
+    adsLevel: "L2+",
+    adsCostMode: "upfront",
+    adsCostUpfront: 6.4,
+    adsPlatform: "FSD V13",
+    autoSummon: true,
+    autoPark: 6,
+
+    // 配置
+    hasFrunk: true,
+    frunkVolume: 88,
+    hasRearScreen: false,
+    hasRearSunshade: false,
+    hasAirSuspension: false,
+    hasVentilatedSeats: "none",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "none",
+    hasHud: false,
+    hasPhysicalButtons: false,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "自研",
+    hasFramelessDoor: true,
+    hasPowerDoor: false,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 250,
+    charge10to80min: 25,
+    hasHomeChargerIncluded: false,
+
+    // NVH与驾驶
+    nvhScore: 6,
+    sportinessScore: 8,
+    zeroto100: 3.1,
   },
   {
     id: "tesla_modely",
@@ -318,6 +617,44 @@ export const carDatabase: CarModel[] = [
     special: {},
     highlights: ["保值率极高", "SUV实用性好", "超充覆盖广"],
     risks: ["内饰简陋", "舒适性不如同价位国产", "FSD在国内受限"],
+
+    // 智驾费用
+    adsLevel: "L2+",
+    adsCostMode: "upfront",
+    adsCostUpfront: 6.4,
+    adsPlatform: "FSD V13",
+    autoSummon: true,
+    autoPark: 6,
+
+    // 配置
+    hasFrunk: true,
+    frunkVolume: 117,
+    hasRearScreen: false,
+    hasRearSunshade: false,
+    hasAirSuspension: false,
+    hasVentilatedSeats: "none",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "none",
+    hasHud: false,
+    hasPhysicalButtons: false,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "自研",
+    hasFramelessDoor: false,
+    hasPowerDoor: false,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 250,
+    charge10to80min: 28,
+    hasHomeChargerIncluded: false,
+
+    // NVH与驾驶
+    nvhScore: 6,
+    sportinessScore: 7,
+    zeroto100: 3.7,
   },
 
   // ==================== 问界 ====================
@@ -354,6 +691,45 @@ export const carDatabase: CarModel[] = [
     },
     highlights: ["华为智驾ADS", "鸿蒙座舱体验一流", "增程无焦虑"],
     risks: ["底盘调校一般", "品牌认知仍在建设", "与华为绑定过深"],
+
+    // 智驾费用
+    adsLevel: "L2++",
+    adsCostMode: "both",
+    adsCostUpfront: 3.6,
+    adsCostMonthly: 720,
+    adsCostYearly: 7200,
+    adsPlatform: "ADS 3.0 Max",
+    autoSummon: true,
+    autoPark: 8,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: false,
+    hasRearSunshade: false,
+    hasAirSuspension: false,
+    hasVentilatedSeats: "front",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "front",
+    hasHud: true,
+    hasPhysicalButtons: false,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "华为SOUND",
+    hasFramelessDoor: false,
+    hasPowerDoor: false,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 100,
+    charge10to80min: 40,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 7,
+    sportinessScore: 5,
+    zeroto100: 4.4,
   },
   {
     id: "aito_m7",
@@ -388,6 +764,45 @@ export const carDatabase: CarModel[] = [
     },
     highlights: ["华为智驾旗舰", "六座大空间", "鸿蒙座舱"],
     risks: ["底盘质感弱于理想", "品牌独立性存疑", "赛力斯品控口碑一般"],
+
+    // 智驾费用
+    adsLevel: "L2++",
+    adsCostMode: "both",
+    adsCostUpfront: 3.6,
+    adsCostMonthly: 720,
+    adsCostYearly: 7200,
+    adsPlatform: "ADS 3.0 Max",
+    autoSummon: true,
+    autoPark: 8,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: true,
+    hasRearSunshade: false,
+    hasAirSuspension: false,
+    hasVentilatedSeats: "front",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "front",
+    hasHud: true,
+    hasPhysicalButtons: false,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "华为SOUND",
+    hasFramelessDoor: false,
+    hasPowerDoor: false,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 100,
+    charge10to80min: 40,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 7,
+    sportinessScore: 5,
+    zeroto100: 4.8,
   },
 
   // ==================== 阿维塔 ====================
@@ -424,5 +839,44 @@ export const carDatabase: CarModel[] = [
     },
     highlights: ["华为智驾加持", "高端运动定位", "长安+华为+宁德联合"],
     risks: ["品牌知名度低", "保值率不确定", "服务网络待完善"],
+
+    // 智驾费用
+    adsLevel: "L2++",
+    adsCostMode: "both",
+    adsCostUpfront: 3.6,
+    adsCostMonthly: 720,
+    adsCostYearly: 7200,
+    adsPlatform: "ADS 3.0 (华为)",
+    autoSummon: true,
+    autoPark: 8,
+
+    // 配置
+    hasFrunk: false,
+    hasRearScreen: false,
+    hasRearSunshade: false,
+    hasAirSuspension: true,
+    hasVentilatedSeats: "front",
+    hasHeatedSeats: "front_rear",
+    hasMassageSeats: "front",
+    hasHud: true,
+    hasPhysicalButtons: false,
+    hasWirelessCharge: true,
+    hasElectricTailgate: true,
+    hasV2L: false,
+    audioBrand: "哈曼卡顿",
+    hasFramelessDoor: true,
+    hasPowerDoor: true,
+    has360Camera: true,
+    hasDigitalKey: true,
+
+    // 补能
+    maxChargePower: 240,
+    charge10to80min: 25,
+    hasHomeChargerIncluded: true,
+
+    // NVH与驾驶
+    nvhScore: 8,
+    sportinessScore: 8,
+    zeroto100: 3.98,
   },
 ];

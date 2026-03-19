@@ -31,6 +31,10 @@ import {
   ChevronUp,
   ChevronDown,
   Minus,
+  Gauge,
+  Volume2,
+  Timer,
+  CreditCard,
 } from "lucide-react";
 
 interface Props {
@@ -46,6 +50,14 @@ interface Dimension {
   icon: React.ReactNode;
   extract: (car: CarModel) => number; // 0-100 normalized
   desc: string;
+}
+
+function getAdsCostLabel(car: CarModel): string {
+  if (car.adsCostMode === "free") return "免费";
+  if (car.adsCostMode === "upfront") return `买断${car.adsCostUpfront}万`;
+  if (car.adsCostMode === "subscribe") return `${car.adsCostMonthly}元/月`;
+  if (car.adsCostMode === "both") return `买断${car.adsCostUpfront}万或${car.adsCostMonthly}元/月`;
+  return "未知";
 }
 
 const dimensions: Dimension[] = [
@@ -65,12 +77,48 @@ const dimensions: Dimension[] = [
     desc: "高速NOA + 城市NOA + 记忆泊车",
   },
   {
+    key: "adsCost",
+    label: "智驾费用",
+    icon: <CreditCard className="w-3.5 h-3.5" />,
+    extract: (c) => {
+      // Free = 100, cheaper = higher
+      if (c.adsCostMode === "free") return 100;
+      const cost = c.adsCostUpfront ?? 0;
+      return Math.max(0, 100 - cost * 12);
+    },
+    desc: "智驾费用（越低越优）",
+  },
+  {
     key: "comfort",
     label: "舒适性",
     icon: <Sofa className="w-3.5 h-3.5" />,
     extract: (c) =>
       ((c.seatComfort + c.soundInsulation + c.suspensionScore) / 30) * 100,
     desc: "座椅 + 隔音 + 底盘",
+  },
+  {
+    key: "nvh",
+    label: "NVH静谧性",
+    icon: <Volume2 className="w-3.5 h-3.5" />,
+    extract: (c) => (c.nvhScore / 10) * 100,
+    desc: "噪音振动舒适性",
+  },
+  {
+    key: "sportiness",
+    label: "运动性",
+    icon: <Gauge className="w-3.5 h-3.5" />,
+    extract: (c) => (c.sportinessScore / 10) * 100,
+    desc: "加速和操控表现",
+  },
+  {
+    key: "charging",
+    label: "充电速度",
+    icon: <Timer className="w-3.5 h-3.5" />,
+    extract: (c) => {
+      // 18min = 100, 45min = 10
+      return Math.max(0, Math.min(100, ((45 - c.charge10to80min) / 27) * 100));
+    },
+    desc: "10-80%快充时间（越快越优）",
   },
   {
     key: "space",
@@ -157,6 +205,14 @@ function generateVerdict(
     if (diff < -8) topWins.push(dim.label);
   }
 
+  // ADS cost difference mention
+  let adsCostNote = "";
+  if (topCar.adsCostMode !== challenger.adsCostMode) {
+    const topCostLabel = getAdsCostLabel(topCar);
+    const challCostLabel = getAdsCostLabel(challenger);
+    adsCostNote = `智驾费用方面，${topName}为${topCostLabel}，${challName}为${challCostLabel}。`;
+  }
+
   let verdict = "";
 
   if (scoreDiff <= 0) {
@@ -184,6 +240,10 @@ function generateVerdict(
     }
     verdict +=
       "。如果这些优势对您很重要，可以考虑调整问卷权重后重新评估。";
+  }
+
+  if (adsCostNote) {
+    verdict += " " + adsCostNote;
   }
 
   return verdict;
@@ -493,6 +553,26 @@ export default function ComparisonPanel({
                       chall: `${selectedCar.cityNoa}/10`,
                     },
                     {
+                      label: "智驾费用",
+                      top: getAdsCostLabel(topCarData),
+                      chall: getAdsCostLabel(selectedCar),
+                    },
+                    {
+                      label: "快充10-80%",
+                      top: `${topCarData.charge10to80min}分钟`,
+                      chall: `${selectedCar.charge10to80min}分钟`,
+                    },
+                    {
+                      label: "NVH评分",
+                      top: `${topCarData.nvhScore}/10`,
+                      chall: `${selectedCar.nvhScore}/10`,
+                    },
+                    {
+                      label: "百公里加速",
+                      top: `${topCarData.zeroto100}秒`,
+                      chall: `${selectedCar.zeroto100}秒`,
+                    },
+                    {
                       label: "3年保值率",
                       top: `${Math.round(topCarData.resaleRate3Year * 100)}%`,
                       chall: `${Math.round(
@@ -528,7 +608,7 @@ export default function ComparisonPanel({
             <Card className="border-primary/20 bg-primary/[0.03]">
               <CardContent className="pt-5">
                 <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                  💡 综合分析
+                  综合分析
                 </h4>
                 <p className="text-sm leading-relaxed">
                   {generateVerdict(

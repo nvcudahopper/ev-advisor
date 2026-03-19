@@ -1,4 +1,4 @@
-import type { DecisionResult, Survey } from "@shared/schema";
+import type { DecisionResult, Survey, CarModel } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -47,6 +47,29 @@ function Stars({ count }: { count: number }) {
   );
 }
 
+function getAdsCostBadge(car: CarModel): string {
+  if (car.adsCostMode === "free") return "智驾免费";
+  if (car.adsCostMode === "upfront") return `智驾买断${car.adsCostUpfront}万`;
+  if (car.adsCostMode === "subscribe") return `智驾${car.adsCostMonthly}元/月`;
+  if (car.adsCostMode === "both") return `智驾买断${car.adsCostUpfront}万`;
+  return "";
+}
+
+function getConfigBadges(car: CarModel): string[] {
+  const badges: string[] = [];
+  if (car.hasFrunk) badges.push("有前备箱");
+  if (car.hasRearScreen) badges.push("后排屏幕");
+  if (car.hasRearSunshade) badges.push("遮阳帘");
+  if (car.hasAirSuspension) badges.push("空气悬挂");
+  if (car.hasMassageSeats !== "none") badges.push("座椅按摩");
+  if (car.hasHud) badges.push("HUD");
+  if (car.hasV2L) badges.push("外放电");
+  if (car.hasPhysicalButtons) badges.push("实体按键");
+  if (car.hasPowerDoor) badges.push("电吸门");
+  if (car.hasFramelessDoor) badges.push("无框门");
+  return badges;
+}
+
 export default function ResultPage({ result, surveyData, onRestart }: Props) {
   const { topCars, purchaseMethods, exitStrategy, selectedCarForFinance } =
     result;
@@ -61,110 +84,144 @@ export default function ResultPage({ result, surveyData, onRestart }: Props) {
         </div>
 
         <div className="space-y-3">
-          {topCars.slice(0, 3).map((rec, idx) => (
-            <Card
-              key={rec.car.id}
-              data-testid={`car-card-${idx}`}
-              className={
-                idx === 0
-                  ? "border-primary/30 bg-primary/[0.03]"
-                  : ""
-              }
-            >
-              <CardContent className="pt-5">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    {idx === 0 && (
-                      <Badge className="bg-primary text-primary-foreground">
-                        最佳匹配
+          {topCars.slice(0, 3).map((rec, idx) => {
+            const adsCostBadge = getAdsCostBadge(rec.car);
+            const configBadges = getConfigBadges(rec.car);
+
+            return (
+              <Card
+                key={rec.car.id}
+                data-testid={`car-card-${idx}`}
+                className={
+                  idx === 0
+                    ? "border-primary/30 bg-primary/[0.03]"
+                    : ""
+                }
+              >
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      {idx === 0 && (
+                        <Badge className="bg-primary text-primary-foreground">
+                          最佳匹配
+                        </Badge>
+                      )}
+                      <div>
+                        <h3 className="text-base font-semibold">
+                          {rec.car.brand} {rec.car.model}
+                        </h3>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {rec.car.priceRange[0]}-{rec.car.priceRange[1]}万 ·{" "}
+                          {rec.car.bodyType === "suv" ? "SUV" : "轿车"} ·{" "}
+                          {rec.car.powerType === "bev" ? "纯电" : "增程"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-primary">
+                        {rec.score}
+                      </div>
+                      <span className="text-xs text-muted-foreground">
+                        适配分
+                      </span>
+                    </div>
+                  </div>
+
+                  <Progress value={rec.score} className="h-1.5 mb-4" />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-1.5 text-xs font-medium text-green-600 dark:text-green-400">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        关键优点
+                      </div>
+                      {rec.topAdvantages.map((adv, i) => (
+                        <p
+                          key={i}
+                          className="text-xs text-muted-foreground pl-5"
+                        >
+                          {adv}
+                        </p>
+                      ))}
+                    </div>
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-1.5 text-xs font-medium text-orange-600 dark:text-orange-400">
+                        <AlertTriangle className="w-3.5 h-3.5" />
+                        关键风险
+                      </div>
+                      {rec.topRisks.map((risk, i) => (
+                        <p
+                          key={i}
+                          className="text-xs text-muted-foreground pl-5"
+                        >
+                          {risk}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Quick specs + ADS cost + config badges */}
+                  <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-border">
+                    <Badge variant="outline" className="text-xs gap-1">
+                      {rec.car.powerType === "bev" ? (
+                        <Zap className="w-3 h-3" />
+                      ) : (
+                        <Fuel className="w-3 h-3" />
+                      )}
+                      {rec.car.powerType === "bev" ? "纯电" : "增程"}{" "}
+                      {rec.car.realWorldRange}km
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      智驾 {rec.car.cityNoa}/10
+                    </Badge>
+                    {adsCostBadge && (
+                      <Badge
+                        variant="outline"
+                        className={`text-xs ${
+                          rec.car.adsCostMode === "free"
+                            ? "border-green-300 text-green-700 dark:border-green-700 dark:text-green-400"
+                            : "border-orange-300 text-orange-700 dark:border-orange-700 dark:text-orange-400"
+                        }`}
+                      >
+                        {adsCostBadge}
                       </Badge>
                     )}
-                    <div>
-                      <h3 className="text-base font-semibold">
-                        {rec.car.brand} {rec.car.model}
-                      </h3>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        {rec.car.priceRange[0]}-{rec.car.priceRange[1]}万 ·{" "}
-                        {rec.car.bodyType === "suv" ? "SUV" : "轿车"} ·{" "}
-                        {rec.car.powerType === "bev" ? "纯电" : "增程"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-primary">
-                      {rec.score}
-                    </div>
-                    <span className="text-xs text-muted-foreground">
-                      适配分
-                    </span>
-                  </div>
-                </div>
-
-                <Progress value={rec.score} className="h-1.5 mb-4" />
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-1.5 text-xs font-medium text-green-600 dark:text-green-400">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      关键优点
-                    </div>
-                    {rec.topAdvantages.map((adv, i) => (
-                      <p
-                        key={i}
-                        className="text-xs text-muted-foreground pl-5"
-                      >
-                        {adv}
-                      </p>
-                    ))}
-                  </div>
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-1.5 text-xs font-medium text-orange-600 dark:text-orange-400">
-                      <AlertTriangle className="w-3.5 h-3.5" />
-                      关键风险
-                    </div>
-                    {rec.topRisks.map((risk, i) => (
-                      <p
-                        key={i}
-                        className="text-xs text-muted-foreground pl-5"
-                      >
-                        {risk}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Quick specs */}
-                <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-border">
-                  <Badge variant="outline" className="text-xs gap-1">
-                    {rec.car.powerType === "bev" ? (
-                      <Zap className="w-3 h-3" />
-                    ) : (
-                      <Fuel className="w-3 h-3" />
+                    <Badge variant="outline" className="text-xs">
+                      快充{rec.car.charge10to80min}分钟
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      3年保值率{" "}
+                      {Math.round(rec.car.resaleRate3Year * 100)}%
+                    </Badge>
+                    {rec.car.canSwapBattery && (
+                      <Badge variant="outline" className="text-xs">
+                        支持换电
+                      </Badge>
                     )}
-                    {rec.car.powerType === "bev" ? "纯电" : "增程"}{" "}
-                    {rec.car.realWorldRange}km
-                  </Badge>
-                  <Badge variant="outline" className="text-xs">
-                    智驾 {rec.car.cityNoa}/10
-                  </Badge>
-                  <Badge variant="outline" className="text-xs">
-                    3年保值率{" "}
-                    {Math.round(rec.car.resaleRate3Year * 100)}%
-                  </Badge>
-                  {rec.car.canSwapBattery && (
-                    <Badge variant="outline" className="text-xs">
-                      支持换电
-                    </Badge>
-                  )}
-                  {rec.car.special?.huaweiSmartDriving && (
-                    <Badge variant="outline" className="text-xs">
-                      华为智驾
-                    </Badge>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                    {rec.car.special?.huaweiSmartDriving && (
+                      <Badge variant="outline" className="text-xs">
+                        华为智驾
+                      </Badge>
+                    )}
+                    {configBadges.slice(0, 4).map((badge) => (
+                      <Badge
+                        key={badge}
+                        variant="secondary"
+                        className="text-xs"
+                      >
+                        {badge}
+                      </Badge>
+                    ))}
+                    {configBadges.length > 4 && (
+                      <Badge variant="secondary" className="text-xs">
+                        +{configBadges.length - 4}项配置
+                      </Badge>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {/* Remaining cars in compact table */}
@@ -182,6 +239,7 @@ export default function ResultPage({ result, surveyData, onRestart }: Props) {
                     <TableHead>车型</TableHead>
                     <TableHead className="text-center">适配分</TableHead>
                     <TableHead className="text-center">动力</TableHead>
+                    <TableHead className="text-center">智驾费用</TableHead>
                     <TableHead className="text-center">价格区间</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -196,6 +254,9 @@ export default function ResultPage({ result, surveyData, onRestart }: Props) {
                       </TableCell>
                       <TableCell className="text-center text-sm">
                         {rec.car.powerType === "bev" ? "纯电" : "增程"}
+                      </TableCell>
+                      <TableCell className="text-center text-sm">
+                        {rec.car.adsCostMode === "free" ? "免费" : `${rec.car.adsCostUpfront}万`}
                       </TableCell>
                       <TableCell className="text-center text-sm">
                         {rec.car.priceRange[0]}-{rec.car.priceRange[1]}万
