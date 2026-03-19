@@ -13,8 +13,8 @@ import type {
   PurchaseMethod,
   ExitStrategy,
   DecisionResult,
-} from "../shared/schema.js";
-import { carDatabase } from "./carData.js";
+} from "../shared/schema";
+import { carDatabase } from "./carData";
 
 // ==================== 可配置参数 ====================
 const CONFIG = {

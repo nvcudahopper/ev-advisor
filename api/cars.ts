@@ -3,7 +3,7 @@
  * 返回所有车型数据
  */
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { carDatabase } from "../server/carData.js";
+import { carDatabase } from "../server/carData";
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader("Access-Control-Allow-Origin", "*");

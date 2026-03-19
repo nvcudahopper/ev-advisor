@@ -3,8 +3,8 @@
  * 接收用户问卷 JSON，返回决策结果
  */
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { surveySchema } from "../shared/schema.js";
-import { evaluate } from "../server/decisionEngine.js";
+import { surveySchema } from "../shared/schema";
+import { evaluate } from "../server/decisionEngine";
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // CORS
